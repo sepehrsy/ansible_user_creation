@@ -3,20 +3,15 @@
   hosts: all
   become: yes
   become_method: sudo
-  vars:
-    users:
-      - username: sepehr
-        password: u.SEhAv5/Lv4c
   tasks:
     - name: Create user
       user:
-        name: "{{ item.username }}"
+        name: sepehr2
+        password: "u.SEhAv5/Lv4c"
         shell: /bin/bash
         createhome: yes
-        group: wheel
-        password: "{{ item.password }}"
-        with_items: "{{ users }}"
+        group: sudo
     - name: Deploy SSH Key
-      authorized_key: user=devops
-        key="{{ lookup('file', '/home/sy/.ssh/id_rsa.pub') }}"
+      authorized_key: user=sepehr2
+        key="{{ lookup('file', './id_rsa.pub') }}"
         state=present
