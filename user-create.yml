@@ -6,12 +6,12 @@
   tasks:
     - name: Create user
       user:
-        name: sepehr2
+        name: sepehr
         password: "u.SEhAv5/Lv4c"
         shell: /bin/bash
         createhome: yes
         group: sudo
     - name: Deploy SSH Key
-      authorized_key: user=sepehr2
+      authorized_key: user=sepehr
         key="{{ lookup('file', './id_rsa.pub') }}"
         state=present
