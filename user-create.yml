@@ -1,0 +1,22 @@
+---
+- name: Create user
+  hosts: all
+  become: yes
+  become_method: sudo
+  vars:
+    users:
+      - username: sepehr
+        password: u.SEhAv5/Lv4c
+  tasks:
+    - name: Create user
+      user:
+        name: "{{ item.username }}"
+        shell: /bin/bash
+        createhome: yes
+        group: wheel
+        password: "{{ item.password }}"
+        with_items: "{{ users }}"
+    - name: Deploy SSH Key
+      authorized_key: user=devops
+        key="{{ lookup('file', '/home/sy/.ssh/id_rsa.pub') }}"
+        state=present
