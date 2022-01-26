@@ -1,0 +1,4 @@
+[all]
+
+
+host1		ansible_user=sepehr       ansible_port=22  
