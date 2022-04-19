@@ -1,16 +1,19 @@
 ---
-- name: Create user
+- name: Create user & ssh key
   hosts: all
   become: yes
   become_method: sudo
+  vars:
+    - password: 'password'
   tasks:
     - name: Create user
       user:
         name: sepehr
-        password: "u.SEhAv5/Lv4c"
+        password: "{{ password }}"
         shell: /bin/bash
         createhome: yes
         group: sudo
+        append: yes
     - name: Deploy SSH Key
       authorized_key: user=sepehr
         key="{{ lookup('file', './id_rsa.pub') }}"
